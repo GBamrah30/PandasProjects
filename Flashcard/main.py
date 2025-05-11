@@ -3,10 +3,10 @@ from flashcard import Flashcards
 
 def show_menu():
     print(f"\nWelcome to the Flashcard App.")
-    print("\n1. Add a flashcard")
-    print("2. Load flashcards")
-    print("3. Review flashcards")
-    print("4. Display all flashcards")
+    print("\n1. Load a flashcard")
+    print("2. Test yourself")
+    print("3. Display current flashcards")
+    print("4. Add a flashcard")
     print("5. Remove a flashcard")
     print("6. Save flashcards")
     print("7. Quit\n")
