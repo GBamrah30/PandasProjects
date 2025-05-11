@@ -1,0 +1,12 @@
+{
+    "Python": "A high-level programming language used for general-purpose programming.",
+    "List": "A collection data type in Python used to store multiple items in a single variable.",
+    "Loop": "A programming structure that repeats a block of code as long as a specified condition is true.",
+    "Dictionary": "A collection of key-value pairs in Python, where each key must be unique.",
+    "Function": "A block of code that only runs when it is called, used to organize code into reusable segments.",
+    "Class": "A blueprint for creating objects, providing initial values for state and implementations of behavior.",
+    "Variable": "A storage location paired with an associated symbolic name that contains some known or unknown quantity of information.",
+    "Exception": "An event that occurs during the execution of a program that disrupts the normal flow of instructions.",
+    "Tuple": "An immutable ordered collection of items in Python.",
+    "Import": "A way to bring in external code or libraries into your script to reuse code from other modules."
+}
