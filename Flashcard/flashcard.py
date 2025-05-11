@@ -1,4 +1,5 @@
 import json
+import os
 import random
 
 class Flashcards:
@@ -25,9 +26,9 @@ class Flashcards:
     def display_flashcard(self):
         print(f"Below are all your flashcards:")
         for term, definition in self.flashcard_dict.items():
-            print(f"Front: {term}\nBack: {definition}")
+            print(f"\nFront: {term}\nBack: {definition}")
 
-        user_input = input(f"Press 'q' to go back to the main screen.")
+        user_input = input(f"\nPress 'q' to go back to the main screen.")
         if user_input.lower() == 'q':
             return
     
@@ -52,19 +53,28 @@ class Flashcards:
         else:
             print("That is not one of your flashcards.")
             
+    def _get_file_path(self, filename):
+        return os.path.join(os.path.dirname(__file__), filename)
+            
     def save_flashcard(self, filename='flashcards.json'):
-        with open('flashcards.json', 'w') as json_file:
+        path = self._get_file_path(filename)
+        with open(path, 'w') as json_file:
             json.dump(self.flashcard_dict, json_file, indent=4)
+            print("Flashcards saved successfully.")
         
     def load_flashcard(self, filename='flashcards.json'):
+        path = self._get_file_path(filename)
+        print("Loading from:", path)
         try:
-            with open('flashcards.json', 'r') as json_file:
+            with open(path, 'r') as json_file:
                 # load the json flashcard file into self.flashcard_dict to use moving forward
                 self.flashcard_dict = json.load(json_file)
                 print("Flashcards loaded successfully.")
         except FileNotFoundError:
             # Try/except prevents app from crashing if file does not exist
             print("No saved flashcards found. Starting with an empty set.")
+        except json.JSONDecodeError as e:
+            print("Error loading flashcards:", e)
     
     def review_flashcard(self):
         while True:

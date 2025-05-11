@@ -20,7 +20,7 @@ def main():
         show_menu()
         
         choice = input("Enter your choice (1-7): ").strip()
-        
+        1
         if choice == '1':
             my_flashcards.load_flashcard()
         elif choice == '2':
@@ -37,7 +37,7 @@ def main():
             print("Thanks for using the flashcard app!")
             break
         else:
-            print("Invalid input. Please enter a number between 1 and 6.")
+            print("Invalid input. Please enter a number between 1 and 7.")
 
 if __name__ == "__main__":
     main()      
