@@ -3,6 +3,7 @@ from flashcard import Flashcards
 
 def show_menu():
     print(f"\nWelcome to the Flashcard App.")
+    print(f"Here you can build your own flashcard database and test your knowledge!")
     print("\n1. Load a flashcard")
     print("2. Test yourself")
     print("3. Display current flashcards")
