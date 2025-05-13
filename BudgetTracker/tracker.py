@@ -53,20 +53,32 @@ class BudgetTracker:
         while True:
             print(f"Add is the title of your new column or press q to quit.")
             title = input("\nNew column title: ")
-            if title == 'q':
+            if title.lower() == 'q':
                 return
             else:
                 self.df.concat([title], axis=1)
+                print(f"Column has been added")
         
     def add_entry(self):
         while True:
-            print(f"Follow the prompts below to enter data into a new row or press q to quit.")
+            print("Follow the prompts below to enter data into a new row or press 'q' at any time to quit.")
+            new_row = {}
             for column in self.df.columns:
-                new_row = {}}
-                if row == 'q':
+                user_input = input(f"Enter information for '{column}': ")
+                if user_input.lower() == 'q':
+                    print("Entry cancelled. Returning to main menu.")
                     return
-                else:
-                    pass
+                new_row[column] = user_input
+            # Convert the new_row dict to a DataFrame with one row
+            new_row_df = pd.DataFrame([new_row])
+            # Append the new row to the main DataFrame
+            self.df = pd.concat([self.df, new_row_df], ignore_index=True)
+            print("New entry added successfully!\n")
+            add_another = input("Would you like to add another entry? (y/n): ")
+            if add_another.lower() != 'y':
+                break
         
     def remove_entry(self):
         pass
+
+        
