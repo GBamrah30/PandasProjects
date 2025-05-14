@@ -130,6 +130,7 @@ def delete_column(self):
             return
 
         # Try to find a column with a matching name (case-insensitive)
+        # This is better than using a for loop because this while only yield the column that matches
         matched_column = next((col for col in self.df.columns if col.lower() == user_input.lower()),None)
 
         if matched_column:
@@ -141,7 +142,7 @@ def delete_column(self):
                     return
                 elif confirm == 'n':
                     print("\nDeletion cancelled.")
-                    return
+                    break
                 else:
                     print("Invalid input. Please enter 'y' or 'n'.")
         else:
