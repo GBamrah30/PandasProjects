@@ -1,12 +1,40 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import tempfile
 import webbrowser
 
 class BudgetTracker:
     def __init__(self):
+        self.df = None
+        self.load_data()
+        
+    def load_data(self):
+        while True:    
+            choice = input("Would you like to load your own dataset (y/n)?: ").strip().lower()
+            if choice == 'y':
+                self.user_data()
+                break
+            elif choice.lower() == 'n':
+                print(f"Type '1' if you would like to load the default dataset, or type '2' if you would like a clean dataset")
+                user_choice = input("\n Choice: ").strip()
+                if user_choice == '1':
+                    self.default_data()
+                else:
+                    self.df = pd.DataFrame(columns=['date', 'category', 'amount', 'description'])
+                break
+            else:
+                print(f"{choice} is not a valid input. Please select 'y' or 'n'".)
+    
+    def user_data(self):
+        user_path = input("Enter your file path here:\n")
+        try:
+            self.df = pd.read_csv(user_path)
+            print(f"File successfully loaded")
+        except FileNotFoundError:
+            print("Dataset not found. Starting with an empty set.")
+            self.df = pd.DataFrame(columns=['date', 'category', 'amount', 'description'])
+    
+    def default_data(self):
         try:
             self.df = pd.read_csv('./BudgetTracker.csv')
             print(f"Successfully loaded your Budget Tracker")
@@ -15,8 +43,20 @@ class BudgetTracker:
             self.df = pd.DataFrame(columns=['date', 'category', 'amount', 'description'])
     
     def save_data(self):
-        self.df.to_csv('./BudgetTracker.csv', index=False)
-        print(f"Dataset successfully saved!")
+        save_choice = input(
+            "Type '1' to save to your own file,\n"
+            "Type '2' to save to the default file,\n"
+            "Or press any other key to cancel.\nChoice: "
+        ).strip()
+        if save_choice == '1':
+            user_path = input("Enter the file path to save your data:\n").strip()
+            self.df.to_csv(user_path, index=False)
+            print(f"Dataset successfully saved to {user_path}.")
+        elif save_choice == '2':
+            self.df.to_csv('./BudgetTracker.csv', index=False)
+            print(f"Dataset successfully saved!")
+        else:
+             print("Save canceled.")
         
     def data_overview(self):
         while True:
