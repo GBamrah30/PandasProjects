@@ -4,4 +4,5 @@
 from tracker import *
 
 df = pd.read_csv('./BudgetTracker.csv')
-print(df.index.to_list())
+for column in df.columns:
+    print(f"{column}")
