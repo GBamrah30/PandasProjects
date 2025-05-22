@@ -23,7 +23,7 @@ class BudgetTracker:
                     self.df = pd.DataFrame(columns=['date', 'category', 'amount', 'description'])
                 break
             else:
-                print(f"{choice} is not a valid input. Please select 'y' or 'n'".)
+                print(f"{choice} is not a valid input. Please select 'y' or 'n'.")
     
     def user_data(self):
         user_path = input("Enter your file path here:\n")
