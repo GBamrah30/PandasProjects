@@ -91,13 +91,24 @@ class BudgetTracker:
     
     def add_column(self):
         while True:
-            print(f"Add is the title of your new column or press q to quit.")
-            title = input("\nNew column title: ")
+            print("Enter the title of your new column or press 'q' to quit.")
+            title = input("New column title: ").strip()
+
             if title.lower() == 'q':
                 return
-            else:
-                self.df.concat([title], axis=1)
-                print(f"Column has been added")
+
+            if title in self.df.columns:
+                print(f"A column named '{title}' already exists. Try a different name.")
+                continue
+
+            # Add the new column with empty strings (or np.nan, or a default value like 0)
+            self.df[title] = ""
+            print(f"Column '{title}' has been added successfully.")
+            
+            add_another = input("Would you like to add another column? (y/n): ").strip().lower()
+            if add_another != 'y':
+                break
+
         
     def add_entry(self):
         while True:
@@ -150,42 +161,42 @@ class BudgetTracker:
                 else:
                     print("Invalid input. Please enter 'y' for yes or 'n' for no.")
 
-def delete_column(self):
+    def delete_column(self):
 
-    if len(self.df.columns) <= 1:
-        print("You have one or less columns left, you cannot delete anymore.")
-        return
-
-    print("Follow the prompts below to delete a selected column:")
-    print("\nBelow are your current columns:\n")
-    #Print a full list of columns
-    for column in self.df.columns:
-        print(column)
-
-    while True:
-        print("\nPlease type in the name of the column you would like to delete or press 'q' to quit")
-        user_input = input("Column name: ").strip()
-
-        if user_input.lower() == 'q':
+        if len(self.df.columns) <= 1:
+            print("You have one or less columns left, you cannot delete anymore.")
             return
 
-        # Try to find a column with a matching name (case-insensitive)
-        # This is better than using a for loop because this while only yield the column that matches
-        matched_column = next((col for col in self.df.columns if col.lower() == user_input.lower()),None)
+        print("Follow the prompts below to delete a selected column:")
+        print("\nBelow are your current columns:\n")
+        #Print a full list of columns
+        for column in self.df.columns:
+            print(column)
 
-        if matched_column:
-            while True:
-                confirm = input(f"\nAre you sure you want to delete the '{matched_column}' column? (y/n): ").lower()
-                if confirm == 'y':
-                    self.df.drop(matched_column, axis=1, inplace=True)
-                    print(f"\nColumn '{matched_column}' deleted successfully.")
-                    return
-                elif confirm == 'n':
-                    print("\nDeletion cancelled.")
-                    break
-                else:
-                    print("Invalid input. Please enter 'y' or 'n'.")
-        else:
-            print("That is not one of the columns.")
+        while True:
+            print("\nPlease type in the name of the column you would like to delete or press 'q' to quit")
+            user_input = input("Column name: ").strip()
+
+            if user_input.lower() == 'q':
+                return
+
+            # Try to find a column with a matching name (case-insensitive)
+            # This is better than using a for loop because this while only yield the column that matches
+            matched_column = next((col for col in self.df.columns if col.lower() == user_input.lower()),None)
+
+            if matched_column:
+                while True:
+                    confirm = input(f"\nAre you sure you want to delete the '{matched_column}' column? (y/n): ").lower()
+                    if confirm == 'y':
+                        self.df.drop(matched_column, axis=1, inplace=True)
+                        print(f"\nColumn '{matched_column}' deleted successfully.")
+                        return
+                    elif confirm == 'n':
+                        print("\nDeletion cancelled.")
+                        break
+                    else:
+                        print("Invalid input. Please enter 'y' or 'n'.")
+            else:
+                print("That is not one of the columns.")
 
         
