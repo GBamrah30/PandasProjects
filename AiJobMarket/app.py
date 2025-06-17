@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 #Set title, layout and a description of the page
 st.set_page_config(page_title = "Global AI Market Trends & Salary 2025", layout = "wide")
@@ -10,7 +11,8 @@ st.title("📊Global AI Market Trends & Salary 2025")
 st.markdown("The below dataset provides an extensive analysis of the artificial intelligence job market with over 15,000 real job postings collected from major job platforms worldwide. \n\nIt includes detailed salary information, job requirements, company insights, and geographic trends.")\
     
 #Load data set
-df = pd.read_csv("ai_job_dataset.csv")
+df_path = os.path.join(os.path.dirname(__file__), "ai_job_dataset.csv")
+df = pd.read_csv(df_path)
 
 #Convert to proper datetime format
 df['posting_date'] = pd.to_datetime(df['posting_date'], errors='coerce')
